@@ -28,11 +28,11 @@ from pyvirtualdisplay import Display
       email,password,server_id
       email,password,tg_bot_token,tg_chat_id
       email,password,server_id,tg_bot_token,tg_chat_id
-  - SEARCADE_SERVER_ID 可选，默认 6927
+  - SEARCADE_SERVER_ID 可选，默认 6598
 """
 
 HOME_URL = "https://searcade.com/"
-DEFAULT_SERVER_ID = os.getenv("SEARCADE_SERVER_ID", "6927").strip() or "6927"
+DEFAULT_SERVER_ID = os.getenv("SEARCADE_SERVER_ID", "6598").strip() or "6598"
 SERVER_URL_TPL = "https://searcade.com/en/admin/servers/{server_id}"
 
 SCREENSHOT_DIR = "screenshots"
