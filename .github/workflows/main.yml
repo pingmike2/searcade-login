@@ -3,7 +3,7 @@ name: searcade Auto Login
 on:
   schedule:
     # 每 4 天跑一次，UTC 18:17 = 北京时间 次日 02:17（凌晨，错开整点）
-    - cron: '17 18 */4 * *'
+    - cron: '17 18 */3 * *'
   workflow_dispatch:
 
 permissions:
