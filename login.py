@@ -263,7 +263,8 @@ def _current_url(sb: SB) -> str:
 
 def _is_on_server_page(sb: SB, server_id: str) -> bool:
     url = _current_url(sb).lower()
-    return f"/admin/servers/{server_id}" in url
+    # 兼容新的 admin.searcade.com/servers/<id> 以及旧的 /admin/servers/<id>
+    return f"/servers/{server_id}" in url or f"/admin/servers/{server_id}" in url
 
 
 def _is_on_userveria_authorize(sb: SB) -> bool:
@@ -376,7 +377,8 @@ def _logout(sb: SB) -> bool:
             if _first_visible(sb, EMAIL_SELECTORS, timeout_each=3):
                 return True
             url_now = _current_url(sb).lower()
-            if "/admin/" not in url_now:
+            # 兼容新的 admin.searcade.com
+            if "/admin/" not in url_now and "admin.searcade.com" not in url_now:
                 return True
         except Exception:
             pass
@@ -388,7 +390,7 @@ def _logout(sb: SB) -> bool:
             if _first_visible(sb, EMAIL_SELECTORS, timeout_each=3):
                 return True
             url_now = _current_url(sb).lower()
-            if "/admin/" not in url_now:
+            if "/admin/" not in url_now and "admin.searcade.com" not in url_now:
                 return True
         except Exception:
             continue
@@ -459,7 +461,7 @@ def login_then_flow_one_account(
 
                 # 如果回到 searcade.com 但不在 server 页，主动进 server 页
                 cur = _current_url(sb).lower()
-                if "searcade.com" in cur and "/admin/servers/" not in cur and "userveria" not in cur:
+                if "searcade.com" in cur and not _is_on_server_page(sb, server_id) and "userveria" not in cur:
                     try:
                         sb.open(server_url)
                         time.sleep(3)
